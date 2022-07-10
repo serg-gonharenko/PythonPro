@@ -9,16 +9,14 @@ origin = [
 
 def filter_by_first_met_value(dataset: List[Dict[str, Any]], keys: List[str]) -> List[Dict[str, Any]]:
     """Filter dataset by first met value in keys"""
+
     filter_result = []
+    selected_values = []
     for entry in dataset:
-        if all(key in entry for key in keys):
-            if not filter_result:
-                filter_result.append(entry)
-            for check_entry in filter_result:
-                if all(entry[key] == check_entry[key] for key in keys):
-                    break
-                else:
-                    filter_result.append(entry)
+        select_value = {key: entry[key] for key in keys}
+        if select_value not in selected_values:
+            selected_values.append(select_value)
+            filter_result.append(entry)
     return filter_result
 
 
